@@ -31,6 +31,7 @@ namespace PWM
             if (error != 0)
                 MessageBox.Show(string.Format("failed to get PWM: {0:X}", error));
             vCurrent.Text = string.Format("{0}", BitConverter.ToInt32(baseData, 4));
+            vOne.Text = string.Format("{0}", BitConverter.ToInt32(baseData, 0));
         }
 
         private void bSet_Click(object sender, EventArgs e)
