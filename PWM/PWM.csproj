@@ -72,10 +72,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="igfxDHLibv2_0">
-      <HintPath>.\igfxDHLibv2_0.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -84,21 +80,20 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PWM.cs">
+    <Compile Include="FormPWM.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PWM.Designer.cs">
-      <DependentUpon>PWM.cs</DependentUpon>
+    <Compile Include="FormPWM.Designer.cs">
+      <DependentUpon>FormPWM.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="PWM.resx">
-      <DependentUpon>PWM.cs</DependentUpon>
+    <EmbeddedResource Include="FormPWM.resx">
+      <DependentUpon>FormPWM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -122,6 +117,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PwmLib\PwmLib.csproj">
+      <Project>{b770c3d4-35de-4c73-bb83-30b8f139b3fc}</Project>
+      <Name>PwmLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
