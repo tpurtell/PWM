@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PwmLib;
+using System;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -6,28 +7,21 @@ namespace PWM
 {
     public partial class FormPWM : Form
     {
-        private PwmLib.PWM _pwm;
+        private PwmManager _pwm;
 
         public FormPWM()
         {
             InitializeComponent();
 
-            _pwm = new PwmLib.PWM();
+            _pwm = new PwmManager();
             RefreshV();
 
             tmr_Refresh.Start();
         }
         void RefreshV()
         {
-            int a = 0, freq = 0;
-            var error = _pwm.GetFrequency(ref a, ref freq);
-            if (error != 0)
-            {
-                MessageBox.Show($"failed to get PWM: {error}");
-            }
-
-            vCurrent.Text = freq.ToString();
-            vOne.Text = a.ToString();
+            vCurrent.Text = _pwm.GetFrequencyString();
+            vOne.Text = "---";
         }
 
         private void bSet_Click(object sender, EventArgs e)
