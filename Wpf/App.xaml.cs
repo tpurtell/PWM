@@ -13,7 +13,7 @@ namespace Wpf
     {
         private Container _components;
         private NotifyIcon _notifyIcon;
-        private PWM _pwm = new PWM();
+        private PwmManager _pwm;
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -24,14 +24,21 @@ namespace Wpf
             {
                 ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(),
                 Icon = Wpf.Properties.Resources.tray,
-                Text = "trololo",
+                Text = "Monitor PWM frequency manager",
                 Visible = true
             };
 
             AddMenuItems(_notifyIcon.ContextMenuStrip.Items);
 
             _notifyIcon.ContextMenuStrip.Opening += ContextMenuStrip_Opening;
-            _notifyIcon.DoubleClick += NotifyIcon_DoubleClick;
+            
+            // ToDo fix position
+            // _notifyIcon.Click += (a, b) => _notifyIcon.ContextMenuStrip.Show();
+
+            _pwm = new PwmManager();
+            _pwm.OnFrequencySet += (f, s) => MessageBox.Show($"freq set to {f}");
+            _pwm.OnError += (f, s) => MessageBox.Show(s);
+            _pwm.LookAfterFreq();
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -51,29 +58,31 @@ namespace Wpf
         }
 
         private System.Windows.Forms.ToolStripLabel _currentFreqLabel;
+        private System.Windows.Forms.ToolStripLabel _freqWatchStatus;
         private void AddMenuItems(System.Windows.Forms.ToolStripItemCollection items)
         {
             _currentFreqLabel = new System.Windows.Forms.ToolStripLabel("???");
             items.Add(_currentFreqLabel);
-            items.Add(new System.Windows.Forms.ToolStripButton("Set PWM frequency", null, setFreq_Click));
-            items.Add(new System.Windows.Forms.ToolStripSeparator());
-            items.Add(new System.Windows.Forms.ToolStripButton("Exit", null, onExit_Clicked));
 
+            _freqWatchStatus = new System.Windows.Forms.ToolStripLabel("???");
+            items.Add(_freqWatchStatus);
+
+            items.Add(new System.Windows.Forms.ToolStripSeparator());
+
+            items.Add(new System.Windows.Forms.ToolStripMenuItem("Set PWM frequency", null, setFreq_Click));
+
+            items.Add(new System.Windows.Forms.ToolStripSeparator());
+
+            items.Add(new System.Windows.Forms.ToolStripMenuItem("Exit", null, onExit_Clicked));
         }
 
         private void ContextMenuStrip_Opening(object sender, CancelEventArgs e)
         {
             e.Cancel = false;
 
-            int a = 0, currentFreq = 0;
-            if (_pwm.GetFrequency(ref a, ref currentFreq) == 0)
-            {
-                _currentFreqLabel.Text = currentFreq.ToString();
-            }
-            else
-            {
-                _currentFreqLabel.Text = "driver error";
-            }
+            _currentFreqLabel.Text = $"Current: {_pwm.GetFrequencyString()} Hz";
+
+            _freqWatchStatus.Text = $"Watching: {(_pwm.FreqWatch ? "enabled" : "disabled")}";
         }
 
         private void onExit_Clicked(object sender, EventArgs e)
@@ -85,11 +94,6 @@ namespace Wpf
         {
             var form = new MainWindow(_pwm);
             form.Show();
-        }
-
-        private void NotifyIcon_DoubleClick(object sender, EventArgs e)
-        {
-            MessageBox.Show("you double clicked me", "Fuck!", MessageBoxButton.YesNo);
         }
     }
 }

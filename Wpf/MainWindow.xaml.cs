@@ -9,8 +9,8 @@ namespace Wpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        PWM _pwm;
-        public MainWindow(PWM pwm)
+        PwmManager _pwm;
+        public MainWindow(PwmManager pwm)
         {
             InitializeComponent();
 
@@ -26,15 +26,7 @@ namespace Wpf
 
         private void RefreshFreqDidplay()
         {
-            int a = 0, currentFreq = 0;
-            if (_pwm.GetFrequency(ref a, ref currentFreq) == 0)
-            {
-                lblFreq.Content = currentFreq.ToString();
-            }
-            else
-            {
-                lblFreq.Content = "driver error";
-            }
+            lblFreq.Content = _pwm.GetFrequencyString();
         }
 
         private void btnSetFreq_Click(object sender, RoutedEventArgs e)
@@ -56,11 +48,6 @@ namespace Wpf
             }
 
             var error = _pwm.SetFrequency(freq);
-
-            if (error != 0)
-            {
-                MessageBox.Show($"failed to set PWM: {error}");
-            }
 
             RefreshFreqDidplay();
         }

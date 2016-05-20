@@ -3,7 +3,7 @@ using System;
 
 namespace PwmLib
 {
-    public class PWM
+    internal class PWM
     {
         private DataHandler dh = new DataHandler();
         private byte[] baseData = new byte[8];
