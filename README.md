@@ -1,9 +1,17 @@
 # WARNING: USE AT YOUR OWN RISK
-Adjusting the value from the default may affect the lifetime of the lamp in your screen.  You might end up looking into the abyss.  You have been WARNED!
+Adjusting the value from the default may affect the lifetime of the lamp in your screen.  You might end up looking into the abyss.  The authors are not responsible for any direct or indirect damages caused by this program.
+
+You have been WARNED!
+
+# Tool
+This is a utility allowing to adjust the PWM driver frequency delivered from Intel Graphics embedded GPU to the embedded LCD panel.  It shows you the existing value and lets you pick a new one.  It also checks that the value you set is not overridden and restores the chosen PWM frequency if required.
+
+Tested under the following conditions:  
+Intel(R) HD Graphics 4600  
+Driver Version: 20.19.15.4424  
+Operating System: Windows* 10 Pro (10.0.10586)
 
 # PWM
-This is a utility to allow for adjust the PWM driver frequency delivered from Intel Graphics embedded GPU to the embedded LCD panel.  It shows you the existing value and lets you pick a new one.
-
 It was inspired by this 
 https://wiki.archlinux.org/index.php/Backlight#Backlight_PWM_modulation_frequency_.28Intel_i915_only.29
 and this
