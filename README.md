@@ -20,5 +20,9 @@ But its for Windows x64 instead.
 
 I think the value it reads back and writes is the frequency in Hz.  The actual output was not checked via high speed camera or anything like that, but it seems to have the same behavior as sending those intel_reg_write commands from linux with the computed values.  The driver actually has two configuration DWORDs,  the default for me for these two values in decimal is 2 and 200.  This utility just keeps the first value as read back from the driver and changes only the second value.  It's possible the first value is duty cycle or mode related, or something completely different.  You could experiment using the source code if you aren't afraid to explode.
 
-# LICENSE
+# Credits
+App icon made by [Freepik](http://www.freepik.com) from [www.flaticon.com](http://www.flaticon.com) is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/)
+
+
+# License
 Public domain

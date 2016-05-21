@@ -24,7 +24,7 @@ namespace Wpf
             {
                 ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(),
                 Icon = Wpf.Properties.Resources.tray,
-                Text = "Monitor PWM frequency manager",
+                Text = "PWM frequency manager",
                 Visible = true
             };
 
