@@ -29,6 +29,8 @@ namespace PwmLib
         {
             OnFrequencySet += (f, s) => { };
             OnError += (f, s) => { };
+
+            // var settings = Windows.Storage.ApplicationData.Current.LocalSettings;
         }
 
         /// <summary>

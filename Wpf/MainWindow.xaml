@@ -12,6 +12,7 @@
         <Label x:Name="label2" Content="Set new frequency:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tbFreq" HorizontalAlignment="Left" Height="23" Margin="126,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60"/>
         <Button x:Name="btnSetFreq" Content="Set" HorizontalAlignment="Left" Margin="191,45,0,0" VerticalAlignment="Top" Width="75" Height="22" Click="btnSetFreq_Click"/>
+        <Button x:Name="btnRefresh" Content="Refresh" HorizontalAlignment="Left" Margin="191,14,0,0" VerticalAlignment="Top" Width="75" Height="22" Click="btnRefresh_Click"/>
 
     </Grid>
 </Window>
