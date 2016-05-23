@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 ## [0.2] - 2016-05-23
 ### Added
 - Save last set frequency in setting file.
+- Show notification in system tray when frequency is set or error occured.
 
 ## [0.1] - 2016-05-22
 ### Added

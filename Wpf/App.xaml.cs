@@ -36,8 +36,21 @@ namespace Wpf
             // _notifyIcon.Click += (a, b) => _notifyIcon.ContextMenuStrip.Show();
 
             _pwm = new PwmManager();
-            _pwm.OnFrequencySet += (f, s) => MessageBox.Show($"freq set to {f}");
-            _pwm.OnError += (f, s) => MessageBox.Show(s);
+            // _pwm.OnFrequencySet += (f, s) => MessageBox.Show($"freq set to {f}");
+
+            _pwm.OnFrequencySet +=
+                (f, s) => _notifyIcon.ShowBalloonTip(
+                    1000,
+                    "PWM Tool",
+                    $"PWM frequency set to {f}",
+                    System.Windows.Forms.ToolTipIcon.Info);
+
+            _pwm.OnError += (f, s) => _notifyIcon.ShowBalloonTip(
+                    1000,
+                    "PWM Tool",
+                    s,
+                    System.Windows.Forms.ToolTipIcon.Error);
+
             _pwm.LookAfterFreq();
         }
 
