@@ -51,5 +51,10 @@ namespace Wpf
 
             RefreshFreqDidplay();
         }
+
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshFreqDidplay();
+        }
     }
 }

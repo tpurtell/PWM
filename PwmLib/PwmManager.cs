@@ -9,7 +9,7 @@ namespace PwmLib
         public event PwmEventHandler OnError;
 
         private PWM _pwm = new PWM();
-        private int _lastFreq = -1;
+        private SettingStore _settings = new SettingStore();
 
         private bool _freqWatch;
 
@@ -85,7 +85,7 @@ namespace PwmLib
             var result = _pwm.SetFrequency(frequency);
             if (result == 0)
             {
-                _lastFreq = frequency;
+                _settings.LastFreq = frequency;
 
                 OnFrequencySet(frequency, null);
             }
@@ -116,6 +116,7 @@ namespace PwmLib
                     return;
                 }
 
+                var _lastFreq = _settings.LastFreq;
                 if (_lastFreq != -1 && f != _lastFreq)
                 {
                     SetFrequency(_lastFreq);
