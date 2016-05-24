@@ -6,21 +6,20 @@ namespace PwmLib
     internal class PWM
     {
         private DataHandler _dh = new DataHandler();
-        private byte[] _baseData = new byte[8];
-        private bool _baseDataInitialized = false;
-
+        private byte[] _someData;
 
         public uint GetFrequency(ref int something, ref int frequency)
         {
+            var data = new byte[8];
             uint error = 0U;
-            _dh.GetDataFromDriver(ESCAPEDATATYPE_ENUM.GET_SET_PWM_FREQUENCY, 8, ref error, ref _baseData[0]);
+            _dh.GetDataFromDriver(ESCAPEDATATYPE_ENUM.GET_SET_PWM_FREQUENCY, 8, ref error, ref data[0]);
             if (error != 0)
             {
                 return error;
             }
 
-            something = BitConverter.ToInt32(_baseData, 0);
-            frequency = BitConverter.ToInt32(_baseData, 4);
+            something = BitConverter.ToInt32(data, 0);
+            frequency = BitConverter.ToInt32(data, 4);
 
             return 0;
         }
@@ -29,11 +28,15 @@ namespace PwmLib
         {
             EnsureBaseDataInitialized();
 
+            var data = new byte[8];
+
+            Array.Copy(_someData, 0, data, 0, 4);
+
             byte[] b = BitConverter.GetBytes(frequency);
-            Array.Copy(b, 0, _baseData, 4, 4);
+            Array.Copy(b, 0, data, 4, 4);
 
             uint error = 0U;
-            _dh.SendDataToDriver(ESCAPEDATATYPE_ENUM.GET_SET_PWM_FREQUENCY, 8, ref error, ref _baseData[0]);
+            _dh.SendDataToDriver(ESCAPEDATATYPE_ENUM.GET_SET_PWM_FREQUENCY, 8, ref error, ref data[0]);
 
             return error;
         }
@@ -45,13 +48,22 @@ namespace PwmLib
         /// </summary>
         private void EnsureBaseDataInitialized()
         {
-            if (_baseDataInitialized)
+            if (_someData != null)
             {
                 return;
             }
 
-            int a = 0, f = 0;
-            GetFrequency(ref a, ref f);
+            var data = new byte[8];
+            uint error = 0U;
+            _dh.GetDataFromDriver(ESCAPEDATATYPE_ENUM.GET_SET_PWM_FREQUENCY, 4, ref error, ref data[0]);
+
+            if (error != 0)
+            {
+                throw new Exception($"Failed to read data from driver. Error code {error}");
+            }
+
+            _someData = new byte[4];
+            Array.Copy(data, 0, _someData, 0, 4);
         }
     }
 }

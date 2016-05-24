@@ -31,12 +31,11 @@ namespace Wpf
             AddMenuItems(_notifyIcon.ContextMenuStrip.Items);
 
             _notifyIcon.ContextMenuStrip.Opening += ContextMenuStrip_Opening;
-            
+
             // ToDo fix position
             // _notifyIcon.Click += (a, b) => _notifyIcon.ContextMenuStrip.Show();
 
             _pwm = new PwmManager();
-            // _pwm.OnFrequencySet += (f, s) => MessageBox.Show($"freq set to {f}");
 
             _pwm.OnFrequencySet +=
                 (f, s) => _notifyIcon.ShowBalloonTip(
@@ -51,7 +50,22 @@ namespace Wpf
                     s,
                     System.Windows.Forms.ToolTipIcon.Error);
 
-            _pwm.LookAfterFreq();
+            // by some reason _pwm.SetFrequency doesn't work if called from a background thread
+            // _pwm.LookAfterFreq();
+            NotifyLastFrequency();
+        }
+
+        private void NotifyLastFrequency()
+        {
+            var lastFreq = _pwm.LastFrequency;
+            if (lastFreq != -1)
+            {
+                _notifyIcon.ShowBalloonTip(
+                        10000,
+                        "PWM Tool",
+                        $"Don't forget to restore your last PWM frequency {lastFreq}",
+                        System.Windows.Forms.ToolTipIcon.Info);
+            }
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -65,7 +79,7 @@ namespace Wpf
             {
                 _components.Dispose();
             }
-            
+
             base.OnExit(e);
 
         }
