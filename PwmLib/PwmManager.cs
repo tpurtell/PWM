@@ -25,6 +25,8 @@ namespace PwmLib
             }
         }
 
+        public int LastFrequency { get { return _settings.LastFreq; } }
+
         public PwmManager()
         {
             OnFrequencySet += (f, s) => { };
@@ -109,7 +111,7 @@ namespace PwmLib
             {
                 var f = GetFrequency();
 
-                // чот сломалось. валим отсюда
+                // чот сломалось
                 if (f == -1)
                 {
                     FreqWatch = false;
