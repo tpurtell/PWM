@@ -76,9 +76,10 @@ namespace PwmLib
         public uint SetFrequency(int frequency)
         {
             // I've read people set values like 700 or 1200.
-            // Feel free to change this restriction at your own risk
+            // I've never heard about frequencies less than 100Hz nad higher than 100kHz.
+            // However, feel free to change this restriction at your own risk
             // Actually, I am in no way responsible for any damage of your device cause by this app, sorry :)
-            if (frequency < 200 || frequency > 2000)
+            if (frequency < 100 || frequency > 100000)
             {
                 OnError(frequency, $"Frequency {frequency} is not allowed. Frequency should be >= 200 and <= 2000.");
                 return 100500;

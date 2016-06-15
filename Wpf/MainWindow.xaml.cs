@@ -32,15 +32,15 @@ namespace Wpf
         private void btnSetFreq_Click(object sender, RoutedEventArgs e)
         {
             int freq;
-            if (!int.TryParse(tbFreq.Text, out freq) || freq < 200)
+            if (!int.TryParse(tbFreq.Text, out freq) || freq < 100)
             {
-                MessageBox.Show("Invalid value < 200");
+                MessageBox.Show("Invalid value < 100");
                 return;
             }
 
-            if (freq > 1000)
+            if (freq > 2000)
             {
-                var res = MessageBox.Show("Are you sure to set PWM frequency > 1KHz?", "Hey!", MessageBoxButton.YesNo);
+                var res = MessageBox.Show("Are you sure to set PWM frequency > 2KHz?", "Hey!", MessageBoxButton.YesNo);
                 if (res == MessageBoxResult.No)
                 {
                     return;
