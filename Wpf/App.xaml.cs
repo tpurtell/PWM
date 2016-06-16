@@ -15,6 +15,8 @@ namespace Wpf
         private NotifyIcon _notifyIcon;
         private PwmManager _pwm;
 
+        private MainWindow _mainWindow;
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -52,19 +54,19 @@ namespace Wpf
 
             // by some reason _pwm.SetFrequency doesn't work if called from a background thread
             // _pwm.LookAfterFreq();
-            NotifyLastFrequency();
+            CheckLastFrequency();
         }
 
-        private void NotifyLastFrequency()
+        private void CheckLastFrequency()
         {
             var lastFreq = _pwm.LastFrequency;
             if (lastFreq != -1)
             {
-                _notifyIcon.ShowBalloonTip(
-                        10000,
-                        "PWM Tool",
-                        $"Don't forget to restore your last PWM frequency {lastFreq}",
-                        System.Windows.Forms.ToolTipIcon.Info);
+                var restorFreqWindow = new RestoreFreqWindow(_pwm);
+                if (restorFreqWindow.IsLoaded)
+                {
+                    restorFreqWindow.Show();
+                }
             }
         }
 
@@ -119,8 +121,15 @@ namespace Wpf
 
         private void setFreq_Click(object sender, EventArgs e)
         {
-            var form = new MainWindow(_pwm);
-            form.Show();
+            if (_mainWindow == null || !_mainWindow.IsLoaded)
+            {
+                _mainWindow = new MainWindow(_pwm);
+
+                // carefull! we are modifying a var from different threads without synchronization
+                _mainWindow.Closing += (s, args) => _mainWindow = null;
+            }
+
+            _mainWindow.Show();
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wpf"
         mc:Ignorable="d"
-        Title="PWM frequency" Height="111.829" Width="288.537" ShowInTaskbar="False" ResizeMode="NoResize">
+        Title="PWM frequency" Height="111.829" Width="288.537" ResizeMode="NoResize">
     <Grid>
         <Label x:Name="label" Content="Current frequency:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblFreq" Content="???" HorizontalAlignment="Left" Margin="124,10,0,0" VerticalAlignment="Top"/>
