@@ -1,0 +1,18 @@
+﻿<Window x:Class="Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf"
+        mc:Ignorable="d"
+        Title="PWM frequency" Height="111.829" Width="288.537" ResizeMode="NoResize">
+    <Grid>
+        <Label x:Name="label" Content="Current frequency:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblFreq" Content="???" HorizontalAlignment="Left" Margin="124,10,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label2" Content="Set new frequency:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbFreq" HorizontalAlignment="Left" Height="23" Margin="126,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60"/>
+        <Button x:Name="btnSetFreq" Content="Set" HorizontalAlignment="Left" Margin="191,45,0,0" VerticalAlignment="Top" Width="75" Height="22" Click="btnSetFreq_Click"/>
+        <Button x:Name="btnRefresh" Content="Refresh" HorizontalAlignment="Left" Margin="191,14,0,0" VerticalAlignment="Top" Width="75" Height="22" Click="btnRefresh_Click"/>
+
+    </Grid>
+</Window>
